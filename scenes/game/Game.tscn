@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_game"]
 [ext_resource type="Texture2D" path="res://assets/sprites/bg.svg" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/actors/Player.tscn" id="3_player"]
 
 [sub_resource type="RectangleShape2D" id="RectShapeTop"]
 size = Vector2(1300, 20)
@@ -47,3 +48,6 @@ shape = SubResource("RectShapeLeft")
 [node name="WallRight" type="CollisionShape2D" parent="Arena/Walls"]
 position = Vector2(1290, 360)
 shape = SubResource("RectShapeRight")
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(640, 360)
