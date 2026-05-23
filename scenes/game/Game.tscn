@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_game"]
 [ext_resource type="Texture2D" path="res://assets/sprites/bg.svg" id="2_bg"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="5_hud"]
 [ext_resource type="Script" path="res://scripts/Spawner.gd" id="6_spawner"]
 [ext_resource type="PackedScene" path="res://scenes/actors/EnemyChaser.tscn" id="7_chaser"]
+[ext_resource type="PackedScene" path="res://scenes/actors/EnemyShooter.tscn" id="8_shooter"]
 
 [sub_resource type="RectangleShape2D" id="RectShapeTop"]
 size = Vector2(1300, 20)
@@ -62,3 +63,4 @@ position = Vector2(640, 360)
 [node name="Spawner" type="Node" parent="."]
 script = ExtResource("6_spawner")
 chaser_scene = ExtResource("7_chaser")
+shooter_scene = ExtResource("8_shooter")

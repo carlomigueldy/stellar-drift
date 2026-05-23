@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/EnemyShooter.gd" id="1_sh"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemy_shooter.svg" id="2_tex"]
+[ext_resource type="PackedScene" path="res://scenes/actors/EnemyBullet.tscn" id="3_eb"]
+
+[sub_resource type="CircleShape2D" id="SHShape"]
+radius = 28.0
+
+[node name="EnemyShooter" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_sh")
+bullet_scene = ExtResource("3_eb")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("SHShape")
