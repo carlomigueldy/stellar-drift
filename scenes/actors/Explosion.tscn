@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/Explosion.gd" id="1_exp"]
+
+[node name="Explosion" type="Node2D"]
+script = ExtResource("1_exp")
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 32
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.9
+direction = Vector2(0, 0)
+spread = 180.0
+initial_velocity_min = 80.0
+initial_velocity_max = 240.0
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(1, 0.7, 0.3, 1)
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+volume_db = -6.0

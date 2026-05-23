@@ -28,3 +28,9 @@ texture = ExtResource("4_flash")
 scale = Vector2(1.5, 1.5)
 modulate = Color(1, 0.9, 0.4, 1)
 visible = false
+
+[node name="LaserSFX" type="AudioStreamPlayer2D" parent="."]
+volume_db = -10.0
+
+[node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
+volume_db = -4.0

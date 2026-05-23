@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const EXPLOSION_SCENE := preload("res://scenes/actors/Explosion.tscn")
+
 @export var speed: float = 110.0
 @export var preferred_distance: float = 320.0
 @export var distance_tolerance: float = 40.0
@@ -53,4 +55,10 @@ func take_damage(amount: int = 1) -> void:
 	hp -= amount
 	if hp <= 0:
 		GameState.add_score(score_value)
+		_spawn_explosion()
 		queue_free()
+
+func _spawn_explosion() -> void:
+	var e: Node2D = EXPLOSION_SCENE.instantiate()
+	e.global_position = global_position
+	get_parent().add_child(e)

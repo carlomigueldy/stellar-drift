@@ -14,6 +14,8 @@ signal damaged
 @onready var sprite: Sprite2D = $Sprite
 @onready var muzzle: Marker2D = $Muzzle
 @onready var muzzle_flash: Sprite2D = $Muzzle/Flash
+@onready var laser_sfx: AudioStreamPlayer2D = $LaserSFX
+@onready var hit_sfx: AudioStreamPlayer2D = $HitSFX
 
 var hp: int = 3
 var _invuln: float = 0.0
@@ -24,6 +26,14 @@ func _ready() -> void:
 	add_to_group("player")
 	GameState.report_player_hp(hp)
 	muzzle_flash.visible = false
+	_load_sound(laser_sfx, ["res://assets/audio/laser.ogg", "res://assets/audio/laser.wav"])
+	_load_sound(hit_sfx, ["res://assets/audio/hit.ogg", "res://assets/audio/hit.wav", "res://assets/audio/impact.ogg", "res://assets/audio/impact.wav"])
+
+func _load_sound(player_node: AudioStreamPlayer2D, candidates: Array) -> void:
+	for p in candidates:
+		if ResourceLoader.exists(p):
+			player_node.stream = load(p)
+			return
 
 func _physics_process(delta: float) -> void:
 	_invuln = maxf(0.0, _invuln - delta)
@@ -50,6 +60,9 @@ func _shoot() -> void:
 	b.rotation = rotation
 	get_parent().add_child(b)
 	_flash_muzzle()
+	if laser_sfx.stream:
+		laser_sfx.pitch_scale = randf_range(0.95, 1.08)
+		laser_sfx.play()
 
 func _flash_muzzle() -> void:
 	muzzle_flash.visible = true
@@ -66,6 +79,8 @@ func take_damage(amount: int = 1) -> void:
 	_invuln = invuln_time
 	damaged.emit()
 	_flash_hit()
+	if hit_sfx.stream:
+		hit_sfx.play()
 	if hp <= 0:
 		died.emit()
 		queue_free()
