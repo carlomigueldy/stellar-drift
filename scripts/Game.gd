@@ -6,10 +6,13 @@ const ASTEROID_COUNT := 10
 @export var asteroid_scene: PackedScene
 
 @onready var arena: Node2D = $Arena
+@onready var player: CharacterBody2D = $Player
 
 func _ready() -> void:
 	GameState.reset_run()
 	_scatter_asteroids()
+	if player and not player.died.is_connected(_on_player_died):
+		player.died.connect(_on_player_died)
 
 func _scatter_asteroids() -> void:
 	if asteroid_scene == null:
@@ -37,3 +40,8 @@ func _scatter_asteroids() -> void:
 		a.position = p
 		arena.add_child(a)
 		placed.append(p)
+
+func _on_player_died() -> void:
+	GameState.report_game_over()
+	await get_tree().create_timer(1.0).timeout
+	get_tree().change_scene_to_file("res://scenes/menus/GameOver.tscn")
