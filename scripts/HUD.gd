@@ -24,9 +24,9 @@ func _on_hp_changed(hp: int) -> void:
 	for c in hearts.get_children():
 		c.queue_free()
 	for i in hp:
-		var tr := TextureRect.new()
-		tr.texture = heart_texture
-		tr.custom_minimum_size = Vector2(36, 36)
-		tr.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
-		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		hearts.add_child(tr)
+		var heart_rect := TextureRect.new()
+		heart_rect.texture = heart_texture
+		heart_rect.custom_minimum_size = Vector2(36, 36)
+		heart_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		heart_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		hearts.add_child(heart_rect)

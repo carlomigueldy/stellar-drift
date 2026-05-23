@@ -21,5 +21,5 @@ func _on_body_entered(body: Node) -> void:
 		body.take_damage(damage)
 	queue_free()
 
-func _on_area_entered(area: Area2D) -> void:
+func _on_area_entered(_area: Area2D) -> void:
 	queue_free()
