@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="chaserBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff7373"/>
+      <stop offset="1" stop-color="#a01818"/>
+    </linearGradient>
+  </defs>
+  <!-- arrowhead-shaped body, points right -->
+  <polygon points="74,40 22,16 36,40 22,64" fill="url(#chaserBody)" stroke="#2a0606" stroke-width="2" stroke-linejoin="round"/>
+  <polygon points="22,16 40,24 40,40 36,40" fill="#c93232" stroke="#2a0606" stroke-width="1.5"/>
+  <polygon points="22,64 40,56 40,40 36,40" fill="#c93232" stroke="#2a0606" stroke-width="1.5"/>
+  <!-- glowing eye -->
+  <circle cx="56" cy="40" r="5" fill="#ffe450" stroke="#2a0606" stroke-width="1.5"/>
+  <circle cx="56" cy="40" r="2" fill="#ff3030"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88" viewBox="0 0 88 88">
+  <defs>
+    <linearGradient id="shooterBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7be07b"/>
+      <stop offset="1" stop-color="#1e6e1e"/>
+    </linearGradient>
+  </defs>
+  <!-- hex body, points right -->
+  <polygon points="80,44 64,18 24,18 8,44 24,70 64,70" fill="url(#shooterBody)" stroke="#0b240b" stroke-width="2" stroke-linejoin="round"/>
+  <!-- gun barrel -->
+  <rect x="62" y="38" width="22" height="12" fill="#444" stroke="#0b240b" stroke-width="1.5"/>
+  <rect x="78" y="40" width="6" height="8" fill="#222" stroke="#0b240b" stroke-width="1"/>
+  <!-- cockpit -->
+  <circle cx="44" cy="44" r="11" fill="#dff6ff" stroke="#0b240b" stroke-width="1.5"/>
+  <circle cx="46" cy="42" r="3" fill="#ffffff" opacity="0.8"/>
+</svg>

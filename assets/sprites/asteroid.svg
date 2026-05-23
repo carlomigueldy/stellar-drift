@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <defs>
+    <radialGradient id="astGrad" cx="0.4" cy="0.35" r="0.7">
+      <stop offset="0" stop-color="#a89b8a"/>
+      <stop offset="1" stop-color="#3d352c"/>
+    </radialGradient>
+  </defs>
+  <!-- irregular rocky polygon -->
+  <polygon points="48,4 72,12 88,32 92,54 76,80 56,90 32,86 12,72 4,46 14,22 30,8"
+           fill="url(#astGrad)" stroke="#1c1812" stroke-width="2" stroke-linejoin="round"/>
+  <!-- crater details -->
+  <circle cx="36" cy="38" r="8" fill="#2d271f" opacity="0.7"/>
+  <circle cx="34" cy="36" r="2" fill="#7a6f5c"/>
+  <circle cx="62" cy="56" r="6" fill="#2d271f" opacity="0.6"/>
+  <circle cx="48" cy="68" r="4" fill="#2d271f" opacity="0.6"/>
+  <circle cx="68" cy="28" r="3" fill="#2d271f" opacity="0.5"/>
+</svg>
