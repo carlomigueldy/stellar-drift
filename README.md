@@ -12,6 +12,37 @@ session from a blank `Hello World` Godot project.
 ![Assets](https://img.shields.io/badge/Assets-CC0-green)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
+![Stellar Drift gameplay](docs/media/gameplay.gif)
+
+---
+
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center"><strong>Main Menu</strong></td>
+    <td align="center"><strong>Game Over</strong></td>
+  </tr>
+  <tr>
+    <td><img src="docs/media/menu.png" alt="Main menu" width="420"/></td>
+    <td><img src="docs/media/gameover.png" alt="Game over" width="420"/></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Wave 1 — Chasers</strong></td>
+    <td align="center"><strong>Wave 2 — More Pressure</strong></td>
+  </tr>
+  <tr>
+    <td><img src="docs/media/gameplay-1.png" alt="Wave 1" width="420"/></td>
+    <td><img src="docs/media/gameplay-2.png" alt="Wave 2" width="420"/></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><strong>Wave 3 — Shooters Appear</strong></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><img src="docs/media/gameplay-3.png" alt="Wave 3" width="860"/></td>
+  </tr>
+</table>
+
 ---
 
 ## Table of Contents
@@ -238,6 +269,39 @@ cannot reach. Instead, the project ships with **hand-authored SVG sprites**
 simple but functional and license-clean.
 
 Audio (`assets/audio/`) is empty — see below to add it.
+
+### Regenerating the demo media
+
+The GIF and screenshots under `docs/media/` are produced by two small tools
+that live in the repo:
+
+- `scripts/DemoController.gd` + `scenes/demo/Demo.tscn` — an auto-pilot that
+  orbits the player, aims at the nearest enemy, and fires automatically.
+- `scripts/CaptureFrames.gd` + `scenes/capture/Capture.tscn` — a one-shot
+  sequencer that loads each menu scene, waits for layout, and saves a PNG.
+
+To rebuild the GIF and screenshots:
+
+```bash
+# 15s gameplay video at 30 FPS
+godot --write-movie /tmp/stellar_demo.avi --fixed-fps 30 --quit-after 450 \
+      res://scenes/demo/Demo.tscn
+
+# Three in-game gameplay screenshots are saved to user:// by DemoController.
+# Find them under ~/.local/share/godot/app_userdata/Stellar\ Drift/
+cp ~/.local/share/godot/app_userdata/Stellar\ Drift/screenshot_*.png docs/media/
+
+# Convert AVI to GIF (palette-optimized)
+ffmpeg -y -i /tmp/stellar_demo.avi \
+  -vf "fps=12,scale=720:-1:flags=lanczos,palettegen=stats_mode=full" /tmp/palette.png
+ffmpeg -y -i /tmp/stellar_demo.avi -i /tmp/palette.png \
+  -lavfi "fps=12,scale=720:-1:flags=lanczos[v];[v][1:v]paletteuse=dither=bayer:bayer_scale=5" \
+  docs/media/gameplay.gif
+
+# Menu + Game Over screenshots
+godot --quit-after 30 res://scenes/capture/Capture.tscn
+cp ~/.local/share/godot/app_userdata/Stellar\ Drift/capture_*.png docs/media/
+```
 
 ---
 
