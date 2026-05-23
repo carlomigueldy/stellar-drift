@@ -49,11 +49,17 @@ func _random_edge_position() -> Vector2:
 
 func _on_enemy_freed() -> void:
 	_alive_enemies -= 1
+	if not is_inside_tree():
+		return
 	_check_wave_clear()
 
 func _check_wave_clear() -> void:
 	if _spawning or _alive_enemies > 0:
 		return
+	if not is_inside_tree():
+		return
 	wave_cleared.emit()
 	await get_tree().create_timer(wave_break_seconds).timeout
+	if not is_inside_tree():
+		return
 	_start_next_wave()
