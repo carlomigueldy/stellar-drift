@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_game"]
 [ext_resource type="Texture2D" path="res://assets/sprites/bg.svg" id="2_bg"]
 [ext_resource type="PackedScene" path="res://scenes/actors/Player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/actors/Asteroid.tscn" id="4_ast"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="5_hud"]
 
 [sub_resource type="RectangleShape2D" id="RectShapeTop"]
 size = Vector2(1300, 20)
@@ -53,3 +54,5 @@ shape = SubResource("RectShapeRight")
 
 [node name="Player" parent="." instance=ExtResource("3_player")]
 position = Vector2(640, 360)
+
+[node name="HUD" parent="." instance=ExtResource("5_hud")]
