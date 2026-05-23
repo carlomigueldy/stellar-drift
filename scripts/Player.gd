@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal died
+signal damaged
 
 @export var speed: float = 320.0
 @export var accel: float = 1800.0
@@ -12,6 +13,7 @@ signal died
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var muzzle: Marker2D = $Muzzle
+@onready var muzzle_flash: Sprite2D = $Muzzle/Flash
 
 var hp: int = 3
 var _invuln: float = 0.0
@@ -21,6 +23,7 @@ func _ready() -> void:
 	hp = max_hp
 	add_to_group("player")
 	GameState.report_player_hp(hp)
+	muzzle_flash.visible = false
 
 func _physics_process(delta: float) -> void:
 	_invuln = maxf(0.0, _invuln - delta)
@@ -46,6 +49,14 @@ func _shoot() -> void:
 	b.global_position = muzzle.global_position
 	b.rotation = rotation
 	get_parent().add_child(b)
+	_flash_muzzle()
+
+func _flash_muzzle() -> void:
+	muzzle_flash.visible = true
+	muzzle_flash.modulate = Color(1, 1, 1, 1)
+	var tween := create_tween()
+	tween.tween_property(muzzle_flash, "modulate:a", 0.0, 0.08)
+	tween.tween_callback(func(): muzzle_flash.visible = false)
 
 func take_damage(amount: int = 1) -> void:
 	if _invuln > 0.0:
@@ -53,9 +64,16 @@ func take_damage(amount: int = 1) -> void:
 	hp = max(0, hp - amount)
 	GameState.report_player_hp(hp)
 	_invuln = invuln_time
+	damaged.emit()
+	_flash_hit()
 	if hp <= 0:
 		died.emit()
 		queue_free()
+
+func _flash_hit() -> void:
+	var tween := create_tween()
+	sprite.modulate = Color(2.5, 0.5, 0.5, 1.0)
+	tween.tween_property(sprite, "modulate", Color.WHITE, invuln_time)
 
 func is_invulnerable() -> bool:
 	return _invuln > 0.0

@@ -7,12 +7,33 @@ const ASTEROID_COUNT := 10
 
 @onready var arena: Node2D = $Arena
 @onready var player: CharacterBody2D = $Player
+@onready var camera: Camera2D = $Camera2D
+
+var _shake_time: float = 0.0
+var _shake_strength: float = 0.0
+var _camera_home: Vector2
 
 func _ready() -> void:
 	GameState.reset_run()
+	_camera_home = camera.position
 	_scatter_asteroids()
-	if player and not player.died.is_connected(_on_player_died):
-		player.died.connect(_on_player_died)
+	if player:
+		if not player.died.is_connected(_on_player_died):
+			player.died.connect(_on_player_died)
+		if not player.damaged.is_connected(_on_player_damaged):
+			player.damaged.connect(_on_player_damaged)
+
+func _process(delta: float) -> void:
+	if _shake_time > 0.0:
+		_shake_time -= delta
+		var offset := Vector2(randf_range(-1, 1), randf_range(-1, 1)) * _shake_strength
+		camera.position = _camera_home + offset
+		if _shake_time <= 0.0:
+			camera.position = _camera_home
+
+func _on_player_damaged() -> void:
+	_shake_time = 0.28
+	_shake_strength = 10.0
 
 func _scatter_asteroids() -> void:
 	if asteroid_scene == null:
